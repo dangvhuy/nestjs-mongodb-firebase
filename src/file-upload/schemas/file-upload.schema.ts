@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 
 export type FileUploadDocument = FileUpload & Document;
 
-@Schema()
+@Schema({collection: 'fileUploads'})
 export class FileUpload {
 
   @Prop()
@@ -11,6 +11,11 @@ export class FileUpload {
 
   @Prop()
   url: string;
+
+  constructor(name: string, url: string) {
+    this.name = name;
+    this.url = url;
+  }
 }
 
 export const FileUploadSchema = SchemaFactory.createForClass(FileUpload);
