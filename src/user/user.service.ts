@@ -17,6 +17,7 @@ export class UserService {
     if (!city) {
       throw new BusinessException('Invalid cityId');
     }
-    await new this.userModel(new User(user.name, user.age, city)).save();
+    const createdUser = await this.userModel.create(new User(user.name, user.age, city));
+    return createdUser;
   }
 }
