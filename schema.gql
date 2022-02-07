@@ -1,0 +1,25 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""user"""
+type UserModel {
+  id: ID!
+  name: String!
+  age: Float
+  cityId: Float!
+}
+
+type Query {
+  sayHello: String!
+}
+
+type Mutation {
+  addUser(user: UserInput!): UserModel!
+}
+
+input UserInput {
+  name: String!
+  age: Float!
+  cityId: Float!
+}

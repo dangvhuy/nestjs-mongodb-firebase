@@ -9,15 +9,29 @@ import {AuthModule} from './auth/auth.module';
 import {UserModule} from './user/user.module';
 import {CityModule} from './city/city.module';
 import {HttpExceptionFilter} from './http-exception.filter';
+import {GraphQLModule} from '@nestjs/graphql';
+import { UserGraphqlModule } from './user-graphql/user-graphql.module';
+import {GraphQLError, GraphQLFormattedError} from 'graphql';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGODB_URI),
+    GraphQLModule.forRoot({
+      autoSchemaFile: 'schema.gql',
+      formatError: (error: GraphQLError) => {
+        const graphQLFormattedError: GraphQLFormattedError = {
+          message: error?.extensions?.response?.message.join(', ') || error?.message,
+        };
+        return graphQLFormattedError;
+      },
+
+    }),
     FileUploadModule,
     AuthModule,
     UserModule,
-    CityModule
+    CityModule,
+    UserGraphqlModule
   ],
   controllers: [AppController],
   providers: [

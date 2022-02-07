@@ -9,6 +9,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
   }
 
   catch(exception: unknown, host: ArgumentsHost) {
+    if (host.getType().toString() === 'graphql') {
+      return exception;
+    }
     const {httpAdapter} = this.httpAdapterHost;
     const httpStatus = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
     const ctx = host.switchToHttp();
@@ -29,6 +32,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
       }
       return [response];
     }
-    return 'unknown error';
+    return ['unknown error'];
   }
 }

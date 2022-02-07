@@ -11,7 +11,7 @@ export class User {
   name: string;
 
   @Prop({type: Number, required: true})
-  age: Number;
+  age: number;
 
   @Prop({type: MongooseSchema.Types.ObjectId, required: true, ref: 'City'})
   city: City;

@@ -1,23 +1,22 @@
 import {IsInt, IsString, Max, MaxLength, Min, MinLength} from 'class-validator';
+import {Field, InputType} from '@nestjs/graphql';
 
-export class UserDto {
+@InputType()
+export class UserInput {
 
+  @Field({nullable: false})
   @IsString()
   @MinLength(3)
   @MaxLength(10)
   readonly name: string;
 
+  @Field()
   @IsInt()
   @Min(0)
   @Max(150)
   readonly age: number;
 
+  @Field({nullable: false})
   @IsInt()
   readonly cityId: number;
-
-  constructor(name: string, age: number, cityId: number) {
-    this.name = name;
-    this.age = age;
-    this.cityId = cityId;
-  }
 }
